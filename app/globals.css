@@ -1,26 +1,227 @@
-@import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --base-padding: 1.875rem; 
+  --text-main: #969696;
+  --text-hover: #ffffff;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #FFF;
+  color: var(--text-main); 
+  font-family: "helvetica-neue-lt-pro", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 0.75rem; 
+  margin: 0;
+  overflow: clip; 
+  height: 100vh;
+  width: 100vw;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  position: fixed; 
+  touch-action: none; 
+}
+
+.mobile-wrapper {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; 
+  box-sizing: border-box;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url('/background.jpeg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+  z-index: -1;
+}
+
+.top-left {
+  position: fixed;
+  top: var(--base-padding);
+  left: var(--base-padding);
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+}
+
+.name-link {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: var(--base-padding);
+  left: var(--base-padding);
+  right: var(--base-padding);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; 
+  z-index: 100;
+  pointer-events: none;
+}
+
+.contact-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 17.5rem;
+  pointer-events: auto;
+}
+
+.project-meta-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: auto;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  bottom: 0; 
+}
+
+
+.index-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.index-placeholder img {
+  width: 55vw; 
+  aspect-ratio: 16/9; 
+  object-fit: contain;
+  display: block;
+}
+
+.project-title-link {
+  text-decoration: none !important;
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: var(--text-hover);
+  text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.8);
+  filter: blur(1px); 
+}
+
+
+@media (max-width: 768px) {
+  body {
+    overflow: hidden; 
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .index-placeholder img {
+    width: 90vw;
+    height: auto;
+    max-height: 40vh; 
+  }
+
+  .top-left {
+    position: relative; 
+    top: 0;
+    left: 0;
+    padding: 0;
+  }
+
+  .main-viewport {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0; 
+  }
+
+
+  .image-wrapper {
+    width: 100%;
+    max-height: 40vh; 
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .bottom-bar {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem; 
+  }
+
+  .top-left, .bottom-bar {
+    flex-shrink: 0; 
+  }
+
+  .index-placeholder img, 
+  .main-viewport img {
+    width: 100% !important; 
+    max-height: 55dvh !important;
+    object-fit: contain;
+  }
+
+  .main-viewport {
+    flex-grow: 1; 
+    flex-shrink: 1;
+    min-height: 0; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    width: 100%;
+    position: relative;
+  }
+
+  .index-placeholder img, 
+  .image-wrapper img, 
+  .main-viewport img {
+    max-width: 90vw; 
+    max-height: 50dvh; 
+    width: auto;
+    height: auto;
+    object-fit: contain; 
+  }
+
+  .project-meta-center {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    width: calc(100% - 40px);
+    transform: none;
+    text-align: left;
+  }
 }
