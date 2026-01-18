@@ -1,7 +1,7 @@
 export const projects = [
     {
         title: "spam_risk/",
-        role: "Artist, Engineer",
+        role: "Art, Engineering",
         src: "/media/Spread1.png",
         media: "/media/spamrisk.mp4",
         link: "https://error417.expectation.fail/13scoresagainsttechfascism/",
@@ -12,7 +12,7 @@ export const projects = [
     },
     {
       title: "Gritos",
-      role: "Artist, Engineer",
+      role: "Art, Engineering",
       src: "/media/gritos.png",
       media: "/media/gritos.webp",
       link: "https://youtu.be/U2rUisajSQA",
@@ -71,7 +71,7 @@ export const projects = [
     },
     {
       title: "DO NOT EAT",
-      role: "Artist, Engineer",
+      role: "Art, Engineering",
       src: "/media/DSC02208.webp",
       link: "#",
       description: "Interactive self-destructive sculpture and performance piece. Arduino, Raspberry Pi, Plexiglass, Water.",
@@ -81,7 +81,7 @@ export const projects = [
     },
     {
       title: "PANO",
-      role: "Artist, Engineer",
+      role: "Art, Engineering",
       src: "/media/IMG_5747.webp",
       link: "https://icantevendothat.github.io/pano/pano.html",
       description: "Interactive Media Arts Master's thesis. Tactical media regarding data practices in the NYC subway.",
@@ -89,7 +89,7 @@ export const projects = [
     },
     {
       title: "LOU",
-      role: "Video Direction",
+      role: "Art, Engineering",
       src: "/media/loucover.png",
       media: "/media/lou.webp",
       link: "https://youtu.be/nj1CXKbxZEc",
@@ -98,7 +98,7 @@ export const projects = [
     },
     {
       title: "Ineinander",
-      role: "Artist, Engineer",
+      role: "Art, Engineering",
       src: "/media/inein.png",
       media: "/media/ineinander.webp",
       link: "https://youtu.be/H6XA3SjPl4g",
@@ -116,7 +116,7 @@ export const projects = [
     },
     {
       title: "Deep Suzhou",
-      role: "Artist, Engineer",
+      role: "Art, Engineering",
       src: "/media/suzhou.png",
       media: "/media/suzhou.webp",
       link: "https://youtu.be/bXk9sOcluf0",
@@ -153,7 +153,7 @@ export const projects = [
     },
     {
       title: "Leçons",
-      role: "Filmmaker",
+      role: "Direction & Production",
       src: "/media/lecons.webp",
       link: "https://youtu.be/ZMbzYOq9LtM",
       description: "Short film about cities and identities using physical and digital step-printing.",
@@ -161,7 +161,7 @@ export const projects = [
     },
     {
         title: "Random House",
-        role: "Photographer",
+        role: "Photography",
         src: "/media/000021400022.webp",
         link: "#",
         description: "Series of portraits in Richmond, Virginia, featuring two young dancers.",
@@ -180,7 +180,7 @@ export const projects = [
       },
       {
         title: "Freedom Plaza",
-        role: "Photographer",
+        role: "Photography",
         src: "/media/00140002.webp",
         link: "#",
         description: "A documentation of Go Skate Day 2021 in Washington, DC. Analog photo series.",
@@ -190,7 +190,7 @@ export const projects = [
       },
       {
         title: "Spaces",
-        role: "Audiovisual Artist",
+        role: "Art, Engineering",
         src: "/media/spaces.webp",
         link: "https://youtu.be/X_zPgFDn9Fo",
         description: "Audiovisual photo series that aims to emulate the female experience in public. Field recordings and 35mm film.",
@@ -198,7 +198,7 @@ export const projects = [
       },
       {
         title: "XUNCH",
-        role: "Web Design",
+        role: "Web Design & Development",
         src: "/media/xunch.png",
         media: "/media/xunch.webp",
         link: "https://xunch.online",
@@ -207,7 +207,7 @@ export const projects = [
       },
       {
         title: "Sitting Around",
-        role: "Artist",
+        role: "Art, Engineering",
         src: "/media/cyano4.webp",
         link: "#",
         description: "Cyanotype series documenting the monotony of recovery and rehab in your youth.",
@@ -217,7 +217,7 @@ export const projects = [
       },
       {
         title: "Slowsports",
-        role: "Filmmaker",
+        role: "Diretion & Production",
         src: "/media/ss.png",
         media: "/media/sports.webp",
         link: "#",
@@ -236,7 +236,7 @@ export const projects = [
       },
       {
         title: "Digital Photography",
-        role: "Photographer",
+        role: "Photography",
         src: "/media/something.webp",
         link: "#",
         description: "Collection of digital photography and collage.",
