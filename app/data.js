@@ -2,7 +2,8 @@ export const projects = [
     {
         title: "spam_risk/",
         role: "Artist, Engineer",
-        src: "/media/spam_risk.png",
+        src: "/media/Spread1.png",
+        media: "/media/spamrisk.mp4",
         link: "https://error417.expectation.fail/13scoresagainsttechfascism/",
         description: "Collection of digital photography and collage.",
         year: "2020 - Present",
