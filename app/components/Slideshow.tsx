@@ -14,10 +14,20 @@ export default function Slideshow({ data }: { data: Project[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const currentProject = data[currentIndex]; 
 
   const nextImage = React.useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
   }, [data.length]);
+
+  useEffect(() => {
+    // Preload the next 2 images in the sequence
+    const preloadIndices = [(currentIndex + 1) % data.length, (currentIndex + 2) % data.length];
+    preloadIndices.forEach(index => {
+      const img = new Image();
+      img.src = data[index].src;
+    });
+  }, [currentIndex, data]);
 
   useEffect(() => {
     if (isPaused) {
@@ -31,8 +41,6 @@ export default function Slideshow({ data }: { data: Project[] }) {
   }, [isPaused, nextImage]);
 
   const handleTogglePause = () => setIsPaused(!isPaused);
-
-  const currentProject = data[currentIndex];
   
   const showRichMedia = isPaused && currentProject.media;
   const isVideo = currentProject.media?.match(/\.(mp4|webm|ogg)$/i);
