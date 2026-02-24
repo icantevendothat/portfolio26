@@ -12,28 +12,38 @@ type Project = {
 
 export default function Slideshow({ data }: { data: Project[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  // Track the "next" index we want to show
+  const [pendingIndex, setPendingIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // We derive the project from the index that is CONFIRMED loaded
   const currentProject = data[currentIndex]; 
 
+  // Timer only moves the PENDING index
   const nextImage = React.useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+    setPendingIndex((prev) => (prev + 1) % data.length);
   }, [data.length]);
 
+  // Synchronizer: When pendingIndex changes, wait for that image to load
   useEffect(() => {
-    // Preload the next 2 images in the sequence
-    const preloadIndices = [(currentIndex + 1) % data.length, (currentIndex + 2) % data.length];
-    preloadIndices.forEach(index => {
-      const img = new Image();
-      img.src = data[index].src;
-    });
-  }, [currentIndex, data]);
+    if (pendingIndex === currentIndex) return;
+
+    const img = new Image();
+    img.src = data[pendingIndex].src;
+    img.onload = () => {
+      // ONLY update the real index once the image is in browser cache
+      setCurrentIndex(pendingIndex);
+    };
+  }, [pendingIndex, data, currentIndex]);
 
   useEffect(() => {
     if (isPaused) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
+    // Note: 150ms is VERY fast. If images are large, they may skip beats 
+    // to keep up with the titles.
     timerRef.current = setInterval(nextImage, 150);
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -51,35 +61,18 @@ export default function Slideshow({ data }: { data: Project[] }) {
     <>
       <div 
         className="main-viewport"
-        style={{ 
-          height: '100vh', 
-          width: '100vw', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          cursor: 'pointer'
-        }}
+        style={{ height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
         onClick={handleTogglePause}
       >
         {showRichMedia ? (
           isVideo ? (
-            <video
-              src={currentProject.media}
-              autoPlay
-              loop
-              muted
-              playsInline
-              style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }}
-            />
+            <video src={currentProject.media} autoPlay loop muted playsInline style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }} />
           ) : (
-            <img 
-              src={currentProject.media} 
-              alt={currentProject.title} 
-              style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }} 
-            />
+            <img src={currentProject.media} alt={currentProject.title} style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }} />
           )
         ) : (
           <img 
+            key={currentProject.src} // KEY is vital here to force a clean swap
             src={currentProject.src} 
             alt={currentProject.title} 
             style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }} 
@@ -93,10 +86,7 @@ export default function Slideshow({ data }: { data: Project[] }) {
           className="project-title-link"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ 
-            pointerEvents: isPaused ? 'auto' : 'none',
-            marginRight: '12px' 
-          }}
+          style={{ pointerEvents: isPaused ? 'auto' : 'none', marginRight: '12px' }}
           onClick={(e) => e.stopPropagation()} 
         >
           "{currentProject.title}"
