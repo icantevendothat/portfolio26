@@ -37,23 +37,75 @@ export default function Home() {
         </div>
 
         <div className="main-viewport">
-          {!showIndex ? (
-            <Slideshow data={projects} />
-          ) : (
-            <>
-              {}
-              <div className="index-placeholder">
-                <img src="/000253110032.jpg" alt="Coming Soon" />
+        {!showIndex ? (
+        <Slideshow data={projects} />
+      ) : (
+        <div className="index-overlay no-scrollbar">
+          {/* Page Header elements */}
+          <div className="index-view-label">index</div>
+          
+          <a 
+            href="#" 
+            className="back-button"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowIndex(false);
+            }}
+          >
+            back
+          </a>
+
+          <div className="index-outer-grid">
+          {projects.map((project, idx) => (
+            <div 
+              key={idx} 
+              className="index-project-entry"
+              onClick={() => window.open(project.link, "_blank")} // Optional: makes the whole block a link
+            >
+              {/* COLUMN 1: INDEX, ROLE, YEAR/LOCATION */}
+              <div className="index-col col-1">
+                <div className="index-number">({String(idx + 1).padStart(3, '0')})</div>
+                <div className="index-group mt-auto">
+                  <div className="index-value role-text">{project.role}</div>
+                  <div className="index-group" style={{ marginTop: '20px' }}>
+                    <div className="index-value year-text">{project.year || "2026"}</div>
+                    <div className="index-value location-text">{project.location || "Global"}</div>
+                  </div>
+                </div>
               </div>
 
-              {}
-              <div className="project-meta-center" style={{ bottom: '30px' }}>
-                <div className="coming-soon-text">coming soon...</div>
+              {/* COLUMN 2: TITLE (TOP) & DESCRIPTION (BOTTOM) */}
+              <div className="index-col col-2">
+                <div className="index-group">
+                  <div className="index-value project-title-top">{project.title}</div>
+                </div>
+                <div className="index-group mt-auto">
+                  <div className="index-value description-text">
+                    {project.description || "Project description goes here."}
+                  </div>
+                </div>
               </div>
-            </>
-          )}
+
+              {/* COLUMN 3: MEDIA LIST */}
+              <div className="index-col col-3">
+                <div className="index-label text-right">Media</div>
+                <div className="media-filename-list">
+                  <div className="media-filename">{project.src.split('/').pop()}</div>
+                  {project.images?.slice(0, 4).map((img, i) => (
+                    <div key={i} className="media-filename">{img.split('/').pop()}</div>
+                  ))}
+                  {project.media && (
+                    <div className="media-filename">{project.media.split('/').pop()}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+</div>
         </div>
+      )}
 
+    </div>
         <div className="bottom-bar">
           <div className="contact-group">
             <a href="https://instagram.com/icantevendothat" target="_blank">@icantevendothat</a>

@@ -7,6 +7,7 @@ export const projects = [
         link: "https://error417.expectation.fail/13scoresagainsttechfascism/",
         description: "Collection of digital photography and collage.",
         year: "2020 - Present",
+        location: "Global",
         carousel: true,
         images: ["/media/000625710001.webp", "/media/000625730019.webp", "/media/collage1.webp", "/media/collage2.webp", "/media/collage3.webp", "/media/collage5.webp", "/media/collage6.webp", "/media/collage8.webp", "/media/collage9.webp", "/media/collage12.webp", "/media/collage13.webp", "/media/collage14.webp", "/media/digital.webp", "/media/DSC_0610-2.webp", "/media/DSC_0616-2.webp", "/media/DSC_0672.webp", "/media/IMG_0408.webp", "/media/IMG_8475.webp", "/media/IMG_89162.webp", "/media/IMG_8936.webp", "/media/IMG_9092.webp", "/media/Screen46.webp", "/media/something.webp"]
     },

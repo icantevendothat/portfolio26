@@ -5,6 +5,15 @@
   --text-hover: #ffffff;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 body {
   background-color: #e9edff;
   color: var(--text-main); 
@@ -96,23 +105,149 @@ html, body {
   bottom: 0; 
 }
 
-
-.index-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-  margin: 0;
+.index-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #e9edff;
+  z-index: 200;
+  overflow-y: auto;
+  padding: 5vh 3vw;
+  color: #1a1a1a; /* Assuming dark text for that archival look */
 }
 
-.index-placeholder img {
-  width: 55vw; 
-  aspect-ratio: 16/9; 
-  object-fit: contain;
-  display: block;
-  padding-top: 20vh;
+/* 3 PROJECTS ACROSS */
+.index-outer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  column-gap: 4vw; 
+  row-gap: 2vh; 
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* THE SQUISHED ENTRY (4 DOWN) */
+.index-project-entry {
+  display: grid;
+  grid-template-columns: 0.6fr 1.8fr 1fr;
+  gap: 1.5rem;
+  min-height: 10vh;
+  padding: 1rem 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.index-value, 
+.index-number, 
+.media-filename, 
+.index-label, 
+.role-text, 
+.description-text, 
+.year-text, 
+.location-text {
+  transition: 
+    color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    text-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: filter, text-shadow; /* Optimizes browser performance for blurs */
+}
+
+/* 2. The Hover Trigger */
+.index-project-entry:hover .index-value,
+.index-project-entry:hover .index-number,
+.index-project-entry:hover .media-filename,
+.index-project-entry:hover .index-label,
+.index-project-entry:hover .role-text,
+.index-project-entry:hover .description-text,
+.index-project-entry:hover .year-text,
+.index-project-entry:hover .location-text {
+  color: var(--text-hover);
+  text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.8);
+  filter: blur(1px);
+}
+
+.index-col {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.65rem; /* Adjust to match your preference */
+  color: var(--text-main); 
+  line-height: 1.2;
+}
+
+/* Middle Column Top Text */
+.project-title-top {
+  font-size: 0.65rem;
+  color: var(--text-main); 
+  letter-spacing: -0.01em;
+}
+
+/* Middle Column Bottom Text */
+.description-text {
+  max-width: 240px;
+  color: var(--text-main); 
+}
+
+/* Role text aligned with Description */
+.role-text {
+  color: var(--text-main); 
+}
+
+.year-text, .location-text {
+  color: var(--text-main); 
+}
+
+.index-number {
+  color: var(--text-main); 
+}
+
+.media-filename-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  margin-top: 1.5rem;
+}
+
+.media-filename {
+  font-size: 0.65rem;
+  color: var(--text-main); 
+  white-space: nowrap;
+}
+
+.index-view-label {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 0.65rem;
+  color: var(--text-main);
+  text-transform: lowercase;
+  z-index: 300;
+  letter-spacing: 0.02em;
+}
+
+.index-label {
+  font-size: 0.65rem;
+  color: var(--text-main); 
+}
+
+.mt-auto { margin-top: auto; }
+
+.back-button {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  color: var(--text-main); 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 0.65rem;
+  z-index: 300;
+  text-transform: lowercase;
+}
+
+.back-button:hover {
+  color: var(--text-hover);
+  text-shadow: 0 0 0.5rem rgba(255, 255, 255, 0.8);
+  filter: blur(1px); 
 }
 
 .project-title-link {
@@ -132,6 +267,9 @@ a:hover {
   filter: blur(1px); 
 }
 
+@media (max-width: 1100px) {
+  .index-outer-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
 @media (max-width: 768px) {
   body {
@@ -145,11 +283,8 @@ a:hover {
     justify-content: space-between;
   }
 
-  .index-placeholder img {
-    width: 90vw;
-    height: auto;
-    max-height: 40vh; 
-  }
+  .index-outer-grid { grid-template-columns: 1fr; }
+  .index-project-entry { min-height: auto; }
 
   .top-left {
     position: relative; 
