@@ -126,10 +126,12 @@ export default function Home() {
         
         {/* The bottom bar is visible in both states, but you can wrap it in !showIndex too if desired */}
         <div className="bottom-bar">
+        {!showIndex && (
           <div className="contact-group">
             <a href="https://instagram.com/icantevendothat" target="_blank">@icantevendothat</a>
             <a href="mailto:annikasanthanam@gmail.com">annikasanthanam@gmail.com</a>
           </div>
+        )}
         </div>
       </div>
     </main>
