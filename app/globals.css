@@ -108,11 +108,49 @@ html, body {
 .index-overlay {
   position: fixed;
   inset: 0;
-  background-color: #e9edff;
+  background-color: transparent; /* Keep it transparent to see the image */
   z-index: 200;
   overflow-y: auto;
   padding: 5vh 3vw;
-  color: #1a1a1a; /* Assuming dark text for that archival look */
+}
+
+/* NEW: The Background Image Preview */
+.index-bg-preview {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: -2; /* Move this to the very bottom */
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.index-bg-preview img {
+  /* Matching your main viewport logic */
+  max-width: 90vw; 
+  max-height: 50dvh; 
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Simple fade for the preview */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 3. Ensure the main background is always at the bottom */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url('/background.webp');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1; /* Sits above the project image, but below text */
+  pointer-events: none;
 }
 
 /* 3 PROJECTS ACROSS */
