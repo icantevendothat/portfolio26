@@ -89,7 +89,7 @@ export const projects = [
       description: "Production for the launch of ICE Magazine Vol 3. Produced at Something Special Studios*",
       year: "2026",
       carousel: true,
-      images: ["/media/IceMag2.png"],
+      images: ["/media/IceMag1.png", "/media/IceMag2.png"],
       category: 'work'
     },
     {
