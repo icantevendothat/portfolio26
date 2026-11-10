@@ -12,56 +12,56 @@ type Project = {
 
 export default function Slideshow({ data }: { data: Project[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [pendingIndex, setPendingIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [mediaLoaded, setMediaLoaded] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Pre-loaded image objects stored in a ref so they stay cached in memory
+  const cachedImagesRef = useRef<HTMLImageElement[]>([]);
+
+  // 1. Preload ALL images into memory on initial mount
+  useEffect(() => {
+    if (!data || data.length === 0) return;
+    
+    cachedImagesRef.current = data.map((project) => {
+      const img = new window.Image();
+      img.src = project.src;
+      return img;
+    });
+  }, [data]);
 
   const currentProject = data[currentIndex];
 
-  const nextImage = React.useCallback(() => {
-    setPendingIndex((prev) => (prev + 1) % data.length);
-  }, [data.length]);
-
+  // 2. Pure, constant-interval ticker using pre-cached data
   useEffect(() => {
-    if (pendingIndex === currentIndex) return;
-    const img = new Image();
-    img.src = data[pendingIndex].src;
-    img.onload = () => {
-      setCurrentIndex(pendingIndex);
-    };
-  }, [pendingIndex, data, currentIndex]);
-
-  useEffect(() => {
-    if (isPaused) {
+    if (isPaused || !data || data.length === 0) {
       if (timerRef.current) clearInterval(timerRef.current);
       return;
     }
-    timerRef.current = setInterval(nextImage, 150);
+
+    timerRef.current = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
+    }, 150);
+
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPaused, nextImage]);
+  }, [isPaused, data.length]);
 
   useEffect(() => {
     setMediaLoaded(false);
   }, [currentIndex]);
 
-  // --- THE LOGGING LOGIC ---
   const handleTogglePause = (e: React.MouseEvent | React.TouchEvent) => {
-    // This prevents the click from 'bubbling' up to other elements
     e.preventDefault();
     e.stopPropagation();
-    
-    const newPauseState = !isPaused;
-    
-    setIsPaused(newPauseState);
+    setIsPaused((prev) => !prev);
   };
+
+  if (!data || data.length === 0) return null;
 
   const isVideo = currentProject.media?.match(/\.(mp4|webm|ogg)$/i);
   const shouldShowRichMedia = isPaused && currentProject.media && mediaLoaded;
-
-  if (!data || data.length === 0) return null;
 
   return (
     <>
@@ -73,30 +73,27 @@ export default function Slideshow({ data }: { data: Project[] }) {
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'center',
-          position: 'relative' // Needed for the hit-box
+          position: 'relative'
         }}
       >
-        {/* HIT-BOX: An invisible layer over the center that captures all clicks */}
         <div 
           style={{
             position: 'absolute',
-            width: '70vw', // Slightly larger than the image for easier clicking
+            width: '70vw',
             height: '70vh',
             zIndex: 10,
             cursor: 'pointer'
           }}
           onClick={handleTogglePause}
-          onTouchStart={handleTogglePause} // Better response for mobile
+          onTouchStart={handleTogglePause}
         />
 
         {isPaused && currentProject.media && !isVideo && (
           <img
             src={currentProject.media}
-            onLoad={() => {
-              console.log("Rich media image loaded.");
-              setMediaLoaded(true);
-            }}
+            onLoad={() => setMediaLoaded(true)}
             style={{ display: 'none' }}
+            alt=""
           />
         )}
 
@@ -108,10 +105,7 @@ export default function Slideshow({ data }: { data: Project[] }) {
               loop
               muted
               playsInline
-              onLoadedData={() => {
-                console.log("Rich media video loaded.");
-                setMediaLoaded(true);
-              }}
+              onLoadedData={() => setMediaLoaded(true)}
               style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }}
             />
           ) : (
@@ -123,15 +117,19 @@ export default function Slideshow({ data }: { data: Project[] }) {
           )
         ) : (
           <img
-            key={currentProject.src}
             src={currentProject.src}
             alt={currentProject.title}
-            style={{ width: '55vw', aspectRatio: '16/9', objectFit: 'contain' }}
+            style={{ 
+              width: '55vw', 
+              aspectRatio: '16/9', 
+              objectFit: 'contain',
+              willChange: 'opacity' // Optimizes layer rendering in browser
+            }}
           />
         )}
       </div>
 
-      <div className="project-meta-center" style={{ bottom: '30px', zIndex: 20 }}>
+      <div className="project-meta-center" style={{ bottom: '30px', zIndex: 20, position: 'absolute' }}>
         <a
           href={currentProject.link}
           className="project-title-link"
@@ -140,7 +138,7 @@ export default function Slideshow({ data }: { data: Project[] }) {
           style={{ pointerEvents: isPaused ? 'auto' : 'none', marginRight: '12px' }}
           onClick={(e) => e.stopPropagation()}
         >
-          "{currentProject.title}"
+          &quot;{currentProject.title}&quot;
         </a>
         <span style={{ opacity: 0.6 }}>{currentProject.role}</span>
       </div>

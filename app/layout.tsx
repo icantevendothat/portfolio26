@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "annika santhanam",
-  description: "art, design, technology, etc.",
+  description: "art, technology, wrongdoings, etc.",
 };
 
 export default function RootLayout({

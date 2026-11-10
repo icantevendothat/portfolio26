@@ -81,6 +81,18 @@ export const projects = [
       category: 'work'
     },
     {
+      title: "ICE Magazine Vol 3 Launch",
+      role: "Production",
+      src: "/media/IceMag1.png",
+      media: "/media/IceMag1.png",
+      link: "https://somethingspecialstudios.com/projects/ice-3",
+      description: "Production for the launch of ICE Magazine Vol 3. Produced at Something Special Studios*",
+      year: "2026",
+      carousel: true,
+      images: ["/media/IceMag2.png"],
+      category: 'work'
+    },
+    {
       title: "Sonic Liberation Devices",
       role: "Creative Direction & Production",
       src: "/media/sld.png",
