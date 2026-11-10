@@ -21,6 +21,16 @@ export const projects = [
     //   year: "2021",
     // },
     {
+      title: "Delito - Jaswiry",
+      role: "Editor",
+      src: "/media/delitojas.png",
+      media: "/media/delitoclip.mov",
+      link: "#",
+      description: "Video Edit for Jaswiry's 'Delito' music video.",
+      year: "2026",
+      category: 'work'
+    },
+    {
       title: "Kill Larry Mgmt",
       role: "Web Design & Development",
       src: "/media/killlarry.png",
@@ -72,15 +82,6 @@ export const projects = [
       category: 'work'
     },
     {
-      title: "My Love - Hannah Jadagu",
-      role: "Direction & Production",
-      src: "/media/mylove.webp",
-      link: "https://www.youtube.com/watch?v=spVWnbL_U-M",
-      description: "Direction and Production for Hannah Jadagu's 'My Love' music video.",
-      year: "2025",
-      category: 'work'
-    },
-    {
       title: "ICE Magazine Vol 3 Launch",
       role: "Production",
       src: "/media/IceMag1.png",
@@ -90,6 +91,15 @@ export const projects = [
       year: "2026",
       carousel: true,
       images: ["/media/IceMag1.png", "/media/IceMag2.png"],
+      category: 'work'
+    },
+    {
+      title: "My Love - Hannah Jadagu",
+      role: "Direction & Production",
+      src: "/media/mylove.webp",
+      link: "https://www.youtube.com/watch?v=spVWnbL_U-M",
+      description: "Direction and Production for Hannah Jadagu's 'My Love' music video.",
+      year: "2025",
       category: 'work'
     },
     {
